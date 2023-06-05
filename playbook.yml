@@ -1,0 +1,7 @@
+---
+- hosts: DynamicWeb
+  become: true
+  roles:
+    - common
+    - docker
+...
