@@ -2,6 +2,12 @@
 - hosts: DynamicWeb
   become: true
   roles:
-    - common
-    - docker
+    #- common
+    #- install_from_rpm
+    #- docker_settings
+    - copy_project
+
+- hosts: DynamicWeb
+  roles:
+    #- run_project
 ...

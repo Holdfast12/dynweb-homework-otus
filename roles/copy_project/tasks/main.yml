@@ -1,0 +1,10 @@
+- name: Copy project # Копируем проект с хост машины в созданную через vagrant
+  copy:
+    src: ./
+    dest: /home/vagrant/project
+    owner: vagrant
+    group: vagrant
+    mode: 0644
+
+- name: reset ssh connection # чтобы применились права на использование docker, необходимо перелогиниться
+  meta: reset_connection

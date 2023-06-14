@@ -1,0 +1,22 @@
+- name: symbolic link docker-compose
+  file:
+    src: /usr/local/bin/docker-compose
+    dest: /usr/bin/docker-compose
+    state: link
+
+- name: Create group docker
+  group:
+    name: docker
+    state: present
+
+- name: add user docker group
+  ansible.builtin.user:
+    name: vagrant
+    groups: docker
+    append: yes
+
+- name: enable and start docker
+  service:
+    name: docker
+    state: started
+    enabled: yes

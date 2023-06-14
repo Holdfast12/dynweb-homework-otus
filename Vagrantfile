@@ -2,9 +2,17 @@
 # vi: set ft=ruby :
 Vagrant.configure(2) do |config|
 
+    config.vm.provider :virtualbox
     config.vm.box_check_update = false
-    config.vm.synced_folder "/home/michael/dnf_cache", "/var/cache/dnf/"
+    # if Vagrant.has_plugin?("vagrant-cachier")
+    #   config.cache.scope = :box
+    #   config.cache.synced_folder_opts = {
+    #   type: :nfs,
+    #   mount_options: ['rw', 'vers=3', 'tcp', 'nolock']
+    #   }
+    # end
     config.vm.provision "ansible" do |ansible|
+      ansible.compatibility_mode = "2.0"
       ansible.playbook = "playbook.yml"
     end
   

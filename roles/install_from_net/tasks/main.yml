@@ -1,0 +1,20 @@
+- name: install docker repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+
+- name: install glibc-langpack-ru
+  ansible.builtin.dnf:
+    name:
+    - glibc-langpack-ru
+    - git
+    - docker-ce
+    state: latest
+    update_cache: yes
+    install_weak_deps: false
+
+- name: Install docker-compose
+  get_url:
+    url : https://github.com/docker/compose/releases/download/v2.17.3/docker-compose-linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: a+x

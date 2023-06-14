@@ -1,0 +1,29 @@
+- name: copy docker-compose
+  ansible.builtin.copy:
+    src: ./docker-compose
+    dest: /usr/local/bin/docker-compose
+    mode: a+x
+
+- name: mkdir /tmp/RPMS
+  file: path=/tmp/RPMS state=directory
+
+- name: copy RPMs to /tmp/RPMS
+  copy:
+    src: "{{ item }}"
+    dest: /tmp/RPMS
+  with_fileglob:
+    - "./*.rpm"
+  register: rpms_copied
+
+- name: local RPMs not found
+  fail:
+    msg: "RPMs not found in ../files/"
+  when: rpms_copied.results|length == 0 and rpms_copied.skipped and rpms_copied.skipped_reason.find('No items') != -1
+
+- set_fact:
+    rpm_list: "{{ rpms_copied.results | map(attribute='dest') | list}}"
+
+- name: install RPMs
+  dnf:
+    name: "{{rpm_list}}"
+    disable_gpg_check: true
