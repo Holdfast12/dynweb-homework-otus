@@ -1,0 +1,6 @@
+.vagrant/
+*.iso
+iso/
+*.rpm
+/roles/install_from_rpm/files/*
+/tmp/
