@@ -2,5 +2,6 @@
 *.iso
 iso/
 *.rpm
-/roles/install_from_rpm/files/*
+/roles/install_from_rpm/files/*.rpm
+/roles/install_from_rpm/files/docker-compose
 /tmp/
